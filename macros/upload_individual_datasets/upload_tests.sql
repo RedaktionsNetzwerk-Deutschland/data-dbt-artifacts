@@ -59,6 +59,11 @@
                     {% else %}
                         {{ adapter.dispatch('parse_json', 'dbt_artifacts')(tojson(test) | replace("\\", "\\\\") | replace("'","\\'") | replace('"', '\\"')) }} {# all_fields #}
                     {% endif %}
+                    {% if test.meta %}
+                        , {{ adapter.dispatch('parse_json', 'dbt_artifacts')(tojson(test.meta) | replace("\\", "\\\\") | replace("'","\\'") | replace('"', '\\"')) }} {# meta #}
+                    {% else %}
+                        , null
+                    {% endif %}
                 )
                 {%- if not loop.last %},{%- endif %}
             {%- endfor %}

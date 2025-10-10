@@ -8,6 +8,8 @@ models:
     description: '{{ doc("command_invocation_id") }}'
   - name: depends_on_nodes
     description: '{{ doc("depends_on_nodes") }}'
+  - name: meta
+    description: meta-Feld, sodass RND hier Informationen ablegen kann
   - name: name
     description: '{{ doc("name") }}'
   - name: node_id
