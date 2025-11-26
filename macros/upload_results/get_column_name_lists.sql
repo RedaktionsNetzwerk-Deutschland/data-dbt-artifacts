@@ -210,7 +210,8 @@
             rows_affected,
             failures,
             message,
-            adapter_response
+            adapter_response,
+            __data_load_ts
         )
 
     {% elif dataset == "tests" %}
@@ -225,7 +226,8 @@
             test_path,
             tags,
             all_results,
-            meta
+            meta,
+            __data_load_ts
         )
 
     {% else %}

@@ -64,6 +64,7 @@
                     {% else %}
                         , null
                     {% endif %}
+                    , CURRENT_TIMESTAMP()
                 )
                 {%- if not loop.last %},{%- endif %}
             {%- endfor %}

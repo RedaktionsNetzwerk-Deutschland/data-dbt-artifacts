@@ -4,10 +4,32 @@
 
     {% if execute %}
 
-        {% set datasets_to_load = ['exposures', 'seeds', 'snapshots', 'invocations', 'sources', 'tests', 'models'] %}
-        {% if results != [] %}
-            {# When executing, and results are available, then upload the results #}
-            {% set datasets_to_load = ['model_executions', 'seed_executions', 'test_executions', 'snapshot_executions'] + datasets_to_load %}
+        {# full list of datasets for reference: ['exposures', 'seeds', 'snapshots', 'invocations', 'sources', 'tests', 'models'] #}
+        {% set datasets_to_load = [] %}
+        {# only upload test data when tests were run #}
+        {% if results | selectattr("node.resource_type", "equalto", "test") | list %}
+            {# full list of datasets for reference: ['model_executions', 'seed_executions', 'test_executions', 'snapshot_executions'] #}
+            {% set datasets_to_load = ['tests', 'test_executions'] + datasets_to_load %}
+        {% else %}
+            {{ log('no test data to upload to dbt artifacts', info=True) }}
+        {% endif %}
+
+        {% if datasets_to_load %}
+            {# Check if the relation exists in BigQuery #}
+            {% set relation = dbt_artifacts.get_relation(datasets_to_load[0]) %}
+            {%- set bigquery_relation = adapter.get_relation(database=relation.database,
+                                                            schema=relation.schema,
+                                                            identifier=relation.identifier) -%}
+            {% if bigquery_relation is none %}
+                {{ exceptions.raise_compiler_error(
+                    'dbt-artifacts  relation ' ~ relation ~
+                    ' does not exist, so dbt-artifacts cannot write results. ' ~
+                    'TIP: Run: dbt run -s package:dbt_artifacts'
+                ) }}
+                {{ return('') }}
+            {% endif %}
+        {% else %}
+            {{ log('no datasets to upload to dbt artifacts', info=True) }}
         {% endif %}
 
         {# Upload each data set in turn #}

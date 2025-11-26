@@ -15,6 +15,10 @@ models:
     +file_format: '{{ "delta" if target.name == "databricks" else "" }}'
     sources:
       +materialized: incremental
+      +partition_by:
+        field: __data_load_ts
+        data_type: timestamp
+        granularity: month
       +full_refresh: false
       +persist_docs:
         # Databricks and SQL Server don't offer column-level support for persisting docs
