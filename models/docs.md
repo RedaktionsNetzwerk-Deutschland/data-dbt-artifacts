@@ -412,3 +412,7 @@ Response provided by the adapter as JSON.
 All results as a JSON blob
 
 {% enddocs %}
+
+{% docs __data_load_ts %}
+The timestamp at which the data was loaded into the database. This can happen via a federated table and a staging table, for example. **Timezone: UTC**
+{% enddocs %}

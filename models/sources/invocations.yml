@@ -42,3 +42,6 @@ models:
         description: '{{ doc("invocation_args") }}'
       - name: dbt_custom_envs
         description: '{{ doc("dbt_custom_envs") }}'
+      - name: __data_load_ts
+        data_type: TIMESTAMP
+        description: '{{ doc("__data_load_ts")}}'

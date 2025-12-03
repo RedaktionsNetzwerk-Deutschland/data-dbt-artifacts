@@ -22,3 +22,6 @@ models:
         description: '{{ doc("tags") }}'
       - name: all_results
         description: '{{ doc("all_results") }}'
+      - name: __data_load_ts
+        data_type: TIMESTAMP
+        description: '{{ doc("__data_load_ts")}}'

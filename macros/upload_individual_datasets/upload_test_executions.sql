@@ -82,6 +82,7 @@
                 {{ 'null' if test.failures is none else test.failures }}, {# failures #}
                 '{{ test.message | replace("\\", "\\\\") | replace("'", "\\'") | replace('"', '\\"') | replace("\n", "\\n") }}', {# message #}
                 {{ adapter.dispatch('parse_json', 'dbt_artifacts')(tojson(test.adapter_response) | replace("\\", "\\\\") | replace("'", "\\'") | replace('"', '\\"')) }} {# adapter_response #}
+                , CURRENT_TIMESTAMP()
             )
             {%- if not loop.last %},{%- endif %}
 

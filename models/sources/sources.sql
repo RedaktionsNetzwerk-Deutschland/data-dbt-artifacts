@@ -19,7 +19,8 @@ select
     {% if target.type == "snowflake" %}, cast(null as {{ type_array() }}) as freshness
     {% else %}, cast(null as {{ type_json() }}) as freshness
     {% endif %},
-    cast(null as {{ type_json() }}) as all_results
+    cast(null as {{ type_json() }}) as all_results,
+    cast(null as {{ type_timestamp() }}) AS __data_load_ts
 from dummy_cte
 where 1 = 0
 
