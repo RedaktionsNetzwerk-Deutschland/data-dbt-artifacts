@@ -20,7 +20,7 @@ select
     cast(null as {{ type_string() }}) as alias,
     cast(null as {{ type_string() }}) as message,
     cast(null as {{ type_json() }}) as adapter_response,
-    cast(null as {{ type_timestamp() }}) AS __data_load_ts
+    cast(null as {{ type_timestamp() }}) AS __data_extract_ts
 from dummy_cte
 where 1 = 0
 

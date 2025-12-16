@@ -26,6 +26,6 @@ select
     , cast(null as {{ type_json() }}) as dbt_vars
     , cast(null as {{ type_json() }}) as invocation_args
     , cast(null as {{ type_json() }}) as dbt_custom_envs
-    , cast(null as {{ type_timestamp() }}) AS __data_load_ts
+    , cast(null as {{ type_timestamp() }}) AS __data_extract_ts
 from dummy_cte
 where 1 = 0
