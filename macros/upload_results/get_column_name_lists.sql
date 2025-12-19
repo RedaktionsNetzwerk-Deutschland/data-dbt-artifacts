@@ -211,7 +211,7 @@
             failures,
             message,
             adapter_response,
-            __data_load_ts
+            __data_extract_ts
         )
 
     {% elif dataset == "tests" %}
@@ -227,7 +227,7 @@
             tags,
             all_results,
             meta,
-            __data_load_ts
+            __data_extract_ts
         )
 
     {% else %}

@@ -20,7 +20,7 @@ select
     {% else %}, cast(null as {{ type_json() }}) as freshness
     {% endif %},
     cast(null as {{ type_json() }}) as all_results,
-    cast(null as {{ type_timestamp() }}) AS __data_load_ts
+    cast(null as {{ type_timestamp() }}) AS __data_extract_ts
 from dummy_cte
 where 1 = 0
 

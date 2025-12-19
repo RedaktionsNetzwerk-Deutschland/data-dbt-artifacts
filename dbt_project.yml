@@ -16,7 +16,7 @@ models:
     sources:
       +materialized: incremental
       +partition_by:
-        field: __data_load_ts
+        field: __data_extract_ts
         data_type: timestamp
         granularity: month
       +full_refresh: false

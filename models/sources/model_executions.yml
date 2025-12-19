@@ -39,6 +39,6 @@ models:
         description: '{{ doc("message") }}'
       - name: adapter_response
         description: '{{ doc("adapter_response") }}'
-      - name: __data_load_ts
+      - name: __data_extract_ts
         data_type: TIMESTAMP
-        description: '{{ doc("__data_load_ts")}}'
+        description: '{{ doc("__data_extract_ts")}}'
