@@ -68,6 +68,7 @@
                     {% else %}
                         {{ adapter.dispatch('parse_json', 'dbt_artifacts')(tojson(seed) | replace("\\", "\\\\") | replace("'","\\'") | replace('"', '\\"')) }} {# all_results #}
                     {% endif %}
+                    , CURRENT_TIMESTAMP() {# __data_extract_ts #}
                 )
                 {%- if not loop.last %},{%- endif %}
             {%- endfor %}

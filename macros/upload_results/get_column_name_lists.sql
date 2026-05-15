@@ -20,7 +20,8 @@
             package_name,
             depends_on_nodes,
             tags,
-            all_results
+            all_results,
+            __data_extract_ts
         )
 
     {% elif dataset == "invocations" %}
@@ -44,7 +45,8 @@
             env_vars,
             dbt_vars,
             invocation_args,
-            dbt_custom_envs
+            dbt_custom_envs,
+            __data_extract_ts
         )
 
     {% elif dataset == "model_executions" %}
@@ -69,7 +71,8 @@
             name,
             alias,
             message,
-            adapter_response
+            adapter_response,
+            __data_extract_ts
         )
 
     {% elif dataset == "models" %}
@@ -90,7 +93,8 @@
             tags,
             meta,
             alias,
-            all_results
+            all_results,
+            __data_extract_ts
         )
 
     {% elif dataset == "seed_executions" %}
@@ -113,7 +117,8 @@
             name,
             alias,
             message,
-            adapter_response
+            adapter_response,
+            __data_extract_ts
         )
 
     {% elif dataset == "seeds" %}
@@ -131,7 +136,8 @@
             checksum,
             meta,
             alias,
-            all_results
+            all_results,
+            __data_extract_ts
         )
 
     {% elif dataset == "snapshot_executions" %}
@@ -154,7 +160,8 @@
             name,
             alias,
             message,
-            adapter_response
+            adapter_response,
+            __data_extract_ts
         )
 
     {% elif dataset == "snapshots" %}
@@ -174,7 +181,8 @@
             strategy,
             meta,
             alias,
-            all_results
+            all_results,
+            __data_extract_ts
         )
 
     {% elif dataset == "sources" %}
@@ -192,7 +200,8 @@
             identifier,
             loaded_at_field,
             freshness,
-            all_results
+            all_results,
+            __data_extract_ts
         )
 
     {% elif dataset == "test_executions" %}
