@@ -151,7 +151,8 @@
         {% for key, value in dbt_metadata_envs.items() %}
             {% do metadata_env.update({key: value}) %}
         {% endfor %}
-        {{ adapter.dispatch('parse_json', 'dbt_artifacts')(tojson(metadata_env) | replace('\\', '\\\\')) }} {# dbt_custom_envs #}
+        {{ adapter.dispatch('parse_json', 'dbt_artifacts')(tojson(metadata_env) | replace('\\', '\\\\')) }}, {# dbt_custom_envs #}
+        CURRENT_TIMESTAMP() {# __data_extract_ts #}
 
         )
     {% endset %}

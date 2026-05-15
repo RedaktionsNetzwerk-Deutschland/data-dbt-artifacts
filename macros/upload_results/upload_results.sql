@@ -6,10 +6,16 @@
 
         {# full list of datasets for reference: ['exposures', 'seeds', 'snapshots', 'invocations', 'sources', 'tests', 'models'] #}
         {% set datasets_to_load = [] %}
+        {# only upload models/sources/seeds/snapshots when var('dbt_artifacts_upload_meta') is true #}
+        {% if var('dbt_artifacts_upload_meta', False) %}
+            {% set datasets_to_load = datasets_to_load + ['models', 'sources', 'seeds', 'snapshots'] %}
+        {% else %}
+            {{ log('dbt_artifacts_upload_meta is false, skipping models/sources/seeds/snapshots upload to dbt artifacts', info=True) }}
+        {% endif %}
         {# only upload test data when tests were run #}
         {% if results | selectattr("node.resource_type", "equalto", "test") | list %}
             {# full list of datasets for reference: ['model_executions', 'seed_executions', 'test_executions', 'snapshot_executions'] #}
-            {% set datasets_to_load = ['tests', 'test_executions'] + datasets_to_load %}
+            {% set datasets_to_load = datasets_to_load + ['tests', 'test_executions'] %}
         {% else %}
             {{ log('no test data to upload to dbt artifacts', info=True) }}
         {% endif %}

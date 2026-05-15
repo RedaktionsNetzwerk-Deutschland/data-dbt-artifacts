@@ -223,6 +223,41 @@ An example operation is as follows:
 dbt run-operation migrate_from_v0_to_v1 --args '{old_database: analytics, old_schema: dbt_artifacts, new_database: analytics, new_schema: artifact_sources}'
 ```
 
+## RND Customizations
+
+This fork contains the following modifications on top of the upstream package:
+
+### Conditional upload via `dbt_artifacts_upload_meta`
+
+The `upload_results` macro supports a new variable `dbt_artifacts_upload_meta` (default: `false`) that controls whether models, sources, seeds and snapshots are uploaded. This allows running a dedicated dbt Cloud job for artifact collection without impacting the runtime of other jobs.
+
+```yml
+# dbt_project.yml
+vars:
+  dbt_artifacts_upload_meta: false  # set to true in dedicated meta artifact job
+```
+
+Dedicated meta job command:
+```bash
+dbt run --select tag:meta --vars '{dbt_artifacts_upload_meta: true}'
+```
+
+Without the variable, only test results are uploaded (when tests ran).
+
+### `__data_extract_ts` on all datasets
+
+All upload macros (models, sources, seeds, snapshots, exposures, invocations, model_executions, seed_executions, snapshot_executions) now write `CURRENT_TIMESTAMP()` as `__data_extract_ts`. Previously this column was only populated for `tests` and `test_executions`.
+
+After upgrading, rebuild the artifact tables to add the new column:
+
+```bash
+dbt run --select package:dbt_artifacts --full-refresh
+```
+
+### Seeds and snapshots upload
+
+Seeds and snapshots are now uploaded alongside models and sources when `dbt_artifacts_upload_meta` is `true`.
+
 ## Acknowledgements
 
 Thank you to [Tails.com](https://tails.com/gb/careers/) for initial development and maintenance of this package. On 2021/12/20, the repository was transferred from the Tails.com GitHub organization to Brooklyn Data Co.
